@@ -15,7 +15,13 @@
                 <img src="./img/image.png" alt="logo">
             </a>
 
-            <nav class="navbar">
+            <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="navbar" id="site-nav">
                 <a href="#inicio">Início</a>
                 <a href="#sobre">Sobre</a>
                 <a href="#endereco">Endereço</a>
@@ -33,8 +39,6 @@
             </div>
         </section>
     </div>
-
-        </section>
 
     <div class="cardiv">
     <section class="fotos">
@@ -233,6 +237,28 @@
         }, { threshold: 0.15 });
 
         animados.forEach(el => observer.observe(el));
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelectorAll('.navbar a');
+
+        if (navToggle && navbar) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = navbar.classList.toggle('is-open');
+                navToggle.classList.toggle('is-open', isOpen);
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+                document.body.classList.toggle('menu-open', isOpen);
+            });
+
+            navLinks.forEach((link) => {
+                link.addEventListener('click', () => {
+                    navbar.classList.remove('is-open');
+                    navToggle.classList.remove('is-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+        }
     </script>
 
     <a href="https://api.whatsapp.com/send/?phone=71999891736&text&type=phone_number&app_absent=0" target="_blank"
@@ -320,7 +346,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>Â© 2026 Veiga Dev. Todos os direitos reservados.</p>
+            <p>© 2026 Veiga Dev. Todos os direitos reservados.</p>
         </div>
     </footer>
     </div>
